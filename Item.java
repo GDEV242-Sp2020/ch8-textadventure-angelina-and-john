@@ -1,6 +1,7 @@
 
 /**
  * This class is for the Item 
+ * 8.20 adds items to the game. 
  *
  * @author Angelina Joy 
  * @version March 8th, 2020
@@ -8,7 +9,7 @@
 public class Item
 {
     // instance variables - replace the example below with your own
-    private int emfReading ;
+    private int weight ;
     private String description; 
 
     /**
@@ -18,9 +19,14 @@ public class Item
     {
         // initialise instance variables
        description = "";
-       emfReading = 0; 
+       weight = 0; 
     }
- 
+  
+  public Item(String itemDescription, int itemWeight)
+  {
+      itemDescription = description;
+      itemWeight = weight; 
+    }
    /**
     *  getItemDescription returns String for Item 
     */
@@ -28,7 +34,7 @@ public class Item
    {
        String itemString = "Item Description: "; 
        itemString += this.description + "\n"; 
-       itemString += "EMF reading:" + this.emfReading;
+       itemString += "Weight:" + this.weight;
        
        return itemString; 
     }

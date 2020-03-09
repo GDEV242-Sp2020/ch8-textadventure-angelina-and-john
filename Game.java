@@ -20,6 +20,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    
         
     
    
@@ -35,31 +36,141 @@ public class Game
 
     /**
      * Create all the rooms and link their exits together.
+     * Create items, each room contains one item
      */
     private void createRooms()
     {
         Room outside, entranceHallway, stairs, stairs2, livingRoom, diningRoom, office,  kitchen, livingRoom2, bathroom1, upstairsHallway, bedroom1, bedroom2, bathroom2, 
         bathroom3, walkInCloset, study, weirdRoom;// start game outside
         
-        outside = new Room("outside the door to the house"); 
-        entranceHallway = new Room ("in the entrance hallway"); 
-        stairs = new Room ("on the stair case going upstairs");
-        stairs2 = new Room ("on the stair case going downstairs");
-        livingRoom = new Room ("in the living room"); 
-        diningRoom = new Room ("in the dining room");
-        office = new Room ("in the office");
-        kitchen = new Room ("in the kitchen");
-        livingRoom2 = new Room ("in the family room");
-        bathroom1 = new Room ("in the guest bathroom");
-        bathroom2 = new Room ("in the Borden's bathroom"); 
-        bathroom3 = new Room ("in Lizzie's bathroom");
-        upstairsHallway = new Room ("in the hallway");
-        bedroom1 = new Room ("in the bedroom of Andrew and Abby Borden");
-        bedroom2 = new Room ("in the bedroom of Borden's daughter, Lizzie");
-        bathroom2 = new Room ("in the upstairs bathroom");
-        walkInCloset = new Room ("in a walk in closet");
-        study = new Room ("in the study");
-        weirdRoom = new Room ("in the secret room");
+        
+        Item outsideItems[] = { 
+                                new Item("Bench", 50),
+                                new Item("Garogyle", 500) 
+        };
+        
+        Item entranceItems[] = { 
+                                new Item("Candle stick", 3)
+        };
+        
+        Item stairsItems[] =      {
+                                new Item("Spiderwebs", 0 ) 
+        };
+        
+        Item stairs2Items[] =  {
+                                new Item("Spiderwebs", 0)
+        };
+        
+        Item livingRoomItems[] = {
+                                new Item("Couch", 300),
+                                new Item("a Book", 5)
+        };
+        
+        Item diningRoomItems[] = {
+                                new Item("Plate", 300),
+                                new Item("fork", 1) 
+        };
+            
+        Item officeItems[] = {
+                                new Item("Book", 4),
+                                new Item("Pile of Papers", 1) 
+        };
+            
+        Item kitchenItems[] = {
+                                new Item("broken plate", 4),
+                                new Item("a painting", 1) 
+        };
+        
+        Item livingRoom2Items[] = {
+                                new Item("Couch", 300),
+                                new Item("a Book", 5)
+                            };
+                            
+        Item bathroom1Item[] = {
+                                new Item("Mirror", 10),
+                                new Item("toothbrush", 2) 
+        };
+        
+        Item bathroom2Item[] = {
+                                new Item("Mirror", 10),
+                                new Item("hairbrush", 2) 
+        };
+                
+        Item bathroom3Item[] = {
+                                new Item("hairbrush", 4),
+                                new Item("toothbrush", 2) 
+        };
+        
+        Item upstairsHallwayItem[] = {
+                                new Item("Family Portrait", 5)
+        }; 
+        
+        Item bedroom1Items[] = {
+                                new Item("bed", 300),
+                                new Item("Rocking chair", 100),
+                                
+        };
+        
+        Item bedroom2Items[] = {
+                                new Item("bed", 300),
+                                new Item("Teddy bear", 5),
+                                new Item("journal", 3)
+                             };
+                             
+        Item StudyItems[] = {
+                                new Item("envelope", 0) 
+        }; 
+       
+        
+        Item walkInClosetItems[] = {
+                                new Item("hanger", 1) 
+        };
+        
+        
+         Item weirdRoomItems[] = {
+                                new Item("Voodoo Doll", 1) 
+        };
+                 
+                            
+        Item bench = new Item("a bench", 200); //1
+        Item candleStick = new Item("a candle stick", 10); //2
+        Item book = new Item("a book" , 3); //3
+        Item fork = new Item("a fork", 0);//4
+        Item journal = new Item("a journal", 0); //5
+        Item plate = new Item("a plate",1);//6
+        Item chandellier = new Item("a chandellier", 2); //7
+        Item portrait = new Item("a family portrait", 5); //8
+        Item toothbrush = new Item("a tooth brush", 0);//9
+        Item hairbrush = new Item("a hair brush", 2);//10
+        Item mirror = new Item("a mirror",4);//11
+        Item painting = new Item("a painting", 4);//12
+        Item teddy = new Item("Teddy bear", 4); //13
+        Item rockingChair = new Item("a Rocking chair" , 40); //14
+        Item pileOfPapers = new Item ("a pile of papers", 0); //15
+        Item hanger = new Item ("a hanger", 3); //16
+        Item creepyDrawings = new Item("creepy drawings",2); //17
+        Item spiderWeb = new Item("spider webs", 0); //18
+        Item spiderWeb2 = new Item("spider webs", 0);//19
+      
+        
+        outside = new Room("outside the door to the house"); //1
+        entranceHallway = new Room ("in the entrance hallway"); //2
+        stairs = new Room ("on the stair case going upstairs");//3
+        stairs2 = new Room ("on the stair case going downstairs");//4
+        livingRoom = new Room ("in the living room"); //5
+        diningRoom = new Room ("in the dining room");//6
+        office = new Room ("in the office");//7
+        kitchen = new Room ("in the kitchen");//8
+        livingRoom2 = new Room ("in the family room");//9
+        bathroom1 = new Room ("in the guest bathroom");//10
+        bathroom2 = new Room ("in the Borden's bathroom"); //11
+        bathroom3 = new Room ("in Lizzie's bathroom");//12
+        upstairsHallway = new Room ("in the hallway");//13
+        bedroom1 = new Room ("in the bedroom of Andrew and Abby Borden");//14
+        bedroom2 = new Room ("in the bedroom of Borden's daughter, Lizzie");//15
+        walkInCloset = new Room ("in a walk in closet");//16
+        study = new Room ("in the study");//17
+        weirdRoom = new Room ("in the secret room");//18
         
         outside.setExit("forward",entranceHallway); 
         
@@ -87,16 +198,24 @@ public class Game
         bathroom1.setExit("south", kitchen); 
         
         stairs.setExit("south", entranceHallway);
-        stairs.setExit("west", bedroom1); 
-        stairs.setExit("east", bedroom2);
-        stairs.setExit("north", study); 
+        stairs.setExit("north", upstairsHallway); 
+        
+        upstairsHallway.setExit("west", bedroom1); 
+        upstairsHallway.setExit("east", bedroom2);
+        upstairsHallway.setExit("north", study); 
+        upstairsHallway.setExit("south", stairs); 
         
         bedroom1.setExit("south", bathroom2);
         bedroom1.setExit("east", stairs2); 
         
+        bathroom2.setExit("north", bedroom1);
+        
+        
         bedroom2.setExit("west", stairs2); 
         bedroom2.setExit("south", bathroom3);
         bedroom2.setExit("east", walkInCloset);
+        
+        bathroom3.setExit("north", bedroom2); 
         
         weirdRoom.setExit("west", bedroom2); 
         
@@ -227,6 +346,9 @@ public class Game
         }
     }
     
+    /**
+     * Adds the look command to the game
+     */
     private boolean look(Command command) 
     {
         if(!command.hasSecondWord())
@@ -239,7 +361,11 @@ public class Game
         
     }
 }
-    
+    /**
+     * 8.15 Add another command with a simple text response
+     * This command pulls a random statement from an array of statements.
+     * Feel free to add more statements 
+     */
     private boolean listen(Command command)
     {
     
@@ -270,7 +396,7 @@ public class Game
     }
 
     
-    
+   
     
     /** 
      * "Quit" was entered. Check the rest of the command to see
