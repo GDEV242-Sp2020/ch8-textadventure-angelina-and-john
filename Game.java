@@ -37,14 +37,20 @@ public class Game
 
     /**
      * Create all the rooms and link their exits together.
-     * Create items, each room contains one item
+     * Create array of items. Each room has its own array. 
+     * 
+     * Items outsideItems[] for example, is for for the "outside Room" 
+     * 
+     * 
      */
     private void createRooms()
     {
         Room outside, entranceHallway, stairs, stairs2, livingRoom, diningRoom, office,  kitchen, livingRoom2, bathroom1, upstairsHallway, bedroom1, bedroom2, bathroom2, 
-        bathroom3, walkInCloset, study, weirdRoom;// start game outside
+        bathroom3, walkInCloset, study, weirdRoom;
         
+        //All the room variables are defined above. 
         
+        //Bellow are all the Item arrays
         Item outsideItems[] = { 
                                 new Item("Bench", 50),
                                 new Item("Garogyle", 500) 
@@ -132,27 +138,11 @@ public class Game
                                 new Item("Voodoo Doll", 1) 
         };
                  
-                            
-        Item bench = new Item("a bench", 200); //1
-        Item candleStick = new Item("a candle stick", 10); //2
-        Item book = new Item("a book" , 3); //3
-        Item fork = new Item("a fork", 0);//4
-        Item journal = new Item("a journal", 0); //5
-        Item plate = new Item("a plate",1);//6
-        Item chandellier = new Item("a chandellier", 2); //7
-        Item portrait = new Item("a family portrait", 5); //8
-        Item toothbrush = new Item("a tooth brush", 0);//9
-        Item hairbrush = new Item("a hair brush", 2);//10
-        Item mirror = new Item("a mirror",4);//11
-        Item painting = new Item("a painting", 4);//12
-        Item teddy = new Item("Teddy bear", 4); //13
-        Item rockingChair = new Item("a Rocking chair" , 40); //14
-        Item pileOfPapers = new Item ("a pile of papers", 0); //15
-        Item hanger = new Item ("a hanger", 3); //16
-        Item creepyDrawings = new Item("creepy drawings",2); //17
-        Item spiderWeb = new Item("spider webs", 0); //18
-        Item spiderWeb2 = new Item("spider webs", 0);//19
-      
+        
+        
+        // bellow all the rooms are made. 
+        
+        
         
         outside = new Room("outside the door to the house"); //1
         entranceHallway = new Room ("in the entrance hallway"); //2
@@ -172,6 +162,11 @@ public class Game
         walkInCloset = new Room ("in a walk in closet");//16
         study = new Room ("in the study");//17
         weirdRoom = new Room ("in the secret room");//18
+        
+        
+        
+        
+        //Bellow are all the exits for the rooms
         
         outside.setExit("forward",entranceHallway); 
         
@@ -292,10 +287,10 @@ public class Game
                 wantToQuit = quit(command);
                 break;
             
-            
+            //Added a Listen Command 8,15
             case LISTEN:
                 wantToListen = listen(command); 
-                
+            //Added a Look Command for 8.14
             case LOOK:
                 wantToLook = look(command); 
                 
@@ -349,6 +344,7 @@ public class Game
     
     /**
      * Adds the look command to the game
+     * Just returns the room description 
      */
     private boolean look(Command command) 
     {
