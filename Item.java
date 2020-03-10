@@ -40,4 +40,8 @@ public class Item
     return itemString; 
     
     }
+    
+    public int getItemWeight(){
+      return this.itemWeight;  
+    }
 }

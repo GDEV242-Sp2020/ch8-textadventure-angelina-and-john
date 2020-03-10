@@ -20,7 +20,9 @@ import java.util.Random;
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
+    private Player player;
+    private Room firstRoom;
+    private String playerName;
     
         
     
@@ -33,6 +35,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        player = new Player(playerName, firstRoom);
     }
 
     /**
@@ -210,8 +213,9 @@ public class Game
         
         weirdRoom.setExit("west", bedroom2); 
         
+        firstRoom = outside;
         
-        currentRoom = outside;
+        
         
         
         
@@ -249,7 +253,7 @@ public class Game
         System.out.println("Anyway,the house is very haunted... but an avid paranormal hunter like you should not worry...but go in at your own risk");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(player.getCurrentRoom().getLongDescription());
     }
 
     /**
@@ -326,14 +330,14 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-        Room nextRoom = currentRoom.getExit(direction);
+        Room nextRoom = player.getCurrentRoom().getExit(direction);
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
         else {
-            currentRoom = nextRoom;
-            System.out.println(currentRoom.getLongDescription());
+            player.setCurrentRoom(nextRoom);
+            System.out.println(player.getCurrentRoom().getLongDescription());
         }
     }
     
@@ -345,7 +349,7 @@ public class Game
     {
         if(!command.hasSecondWord())
     {
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(player.getCurrentRoom().getLongDescription());
         return true; 
     } 
     else{
