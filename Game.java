@@ -141,7 +141,7 @@ public class Game
         study = new Room ("in the study");//17
         weirdRoom = new Room ("in the secret room");//18
         
-        
+        //Added all the items to the rooms 
         outside = addItemsToRoom(outside, outsideItems); 
         entranceHallway = addItemsToRoom(entranceHallway, entranceItems); 
         stairs = addItemsToRoom(stairs, stairsItems); 

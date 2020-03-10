@@ -9,8 +9,9 @@
 public class Item
 {
     // instance variables - replace the example below with your own
-    private int weight ;
-    private String description; 
+    private String itemDescription;
+    private int itemWeight ;
+     
 
     /**
      * Constructor for objects of class Item
@@ -18,11 +19,11 @@ public class Item
     public Item()
     {
         // initialise instance variables
-       description = "";
-       weight = 0; 
+       itemDescription = "";
+       itemWeight = 0; 
     }
   
-  public Item(String itemDescription, int itemWeight)
+  public Item(String description, int weight)
   {
       itemDescription = description;
       itemWeight = weight; 
@@ -32,10 +33,11 @@ public class Item
     */
    public String getItemDescription()
    {
-       String itemString = "Item Description: "; 
-       itemString += this.description + "\n"; 
-       itemString += "Weight:" + this.weight;
-       
-       return itemString; 
+     String itemString = "\t Item name:  " 
+    +
+    this.itemDescription + "\n"; 
+    itemString += "\t Item weight: " + this.itemWeight; 
+    return itemString; 
+    
     }
 }
