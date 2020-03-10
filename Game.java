@@ -55,15 +55,12 @@ public class Game
                                 new Item("Bench", 50),
                                 new Item("Garogyle", 500) 
         };
-        
         Item entranceItems[] = { 
                                 new Item("Candle stick", 3)
         };
-        
         Item stairsItems[] =      {
                                 new Item("Spiderwebs", 0 ) 
         };
-        
         Item stairs2Items[] =  {
                                 new Item("Spiderwebs", 0)
         };
@@ -71,79 +68,60 @@ public class Game
         Item livingRoomItems[] = {
                                 new Item("Couch", 300),
                                 new Item("a Book", 5)
-        };
-        
+        };      
         Item diningRoomItems[] = {
                                 new Item("Plate", 300),
                                 new Item("fork", 1) 
         };
-            
         Item officeItems[] = {
                                 new Item("Book", 4),
                                 new Item("Pile of Papers", 1) 
         };
-            
         Item kitchenItems[] = {
                                 new Item("broken plate", 4),
                                 new Item("a painting", 1) 
         };
-        
         Item livingRoom2Items[] = {
                                 new Item("Couch", 300),
                                 new Item("a Book", 5)
-                            };
-                            
-        Item bathroom1Item[] = {
+                            };            
+        Item bathroom1Items[] = {
                                 new Item("Mirror", 10),
                                 new Item("toothbrush", 2) 
         };
-        
-        Item bathroom2Item[] = {
+        Item bathroom2Items[] = {
                                 new Item("Mirror", 10),
                                 new Item("hairbrush", 2) 
-        };
-                
-        Item bathroom3Item[] = {
+        };  
+        Item bathroom3Items[] = {
                                 new Item("hairbrush", 4),
                                 new Item("toothbrush", 2) 
-        };
-        
-        Item upstairsHallwayItem[] = {
+        };  
+        Item upstairsHallwayItems[] = {
                                 new Item("Family Portrait", 5)
         }; 
-        
         Item bedroom1Items[] = {
                                 new Item("bed", 300),
-                                new Item("Rocking chair", 100),
-                                
+                                new Item("Rocking chair", 100),                   
         };
-        
         Item bedroom2Items[] = {
                                 new Item("bed", 300),
                                 new Item("Teddy bear", 5),
                                 new Item("journal", 3)
-                             };
-                             
-        Item StudyItems[] = {
+                             };            
+        Item studyItems[] = {
                                 new Item("envelope", 0) 
-        }; 
-       
-        
+        };
         Item walkInClosetItems[] = {
                                 new Item("hanger", 1) 
         };
-        
-        
          Item weirdRoomItems[] = {
                                 new Item("Voodoo Doll", 1) 
         };
-                 
+        
         
         
         // bellow all the rooms are made. 
-        
-        
-        
         outside = new Room("outside the door to the house"); //1
         entranceHallway = new Room ("in the entrance hallway"); //2
         stairs = new Room ("on the stair case going upstairs");//3
@@ -164,11 +142,28 @@ public class Game
         weirdRoom = new Room ("in the secret room");//18
         
         
-        
+        outside = addItemsToRoom(outside, outsideItems); 
+        entranceHallway = addItemsToRoom(entranceHallway, entranceItems); 
+        stairs = addItemsToRoom(stairs, stairsItems); 
+        stairs2 = addItemsToRoom(stairs2, stairs2Items); 
+        livingRoom = addItemsToRoom(livingRoom, livingRoomItems); 
+        diningRoom = addItemsToRoom(diningRoom, diningRoomItems); 
+        office = addItemsToRoom(office, officeItems); 
+        kitchen = addItemsToRoom(kitchen, kitchenItems);
+        livingRoom2 =  addItemsToRoom(livingRoom2, livingRoom2Items); 
+        bathroom1 = addItemsToRoom(bathroom1, bathroom1Items);
+        bathroom2 = addItemsToRoom(bathroom2, bathroom2Items);
+        bathroom3 = addItemsToRoom(bathroom3, bathroom3Items); 
+        upstairsHallway = addItemsToRoom(upstairsHallway, upstairsHallwayItems); 
+        bedroom1 = addItemsToRoom(bedroom1, bedroom1Items); 
+        bedroom2 = addItemsToRoom(bedroom2, bedroom1Items);
+        walkInCloset = addItemsToRoom(walkInCloset, walkInClosetItems); 
+        study = addItemsToRoom(study, studyItems); 
+        weirdRoom = addItemsToRoom(weirdRoom, weirdRoomItems); 
         
         //Bellow are all the exits for the rooms
         
-        outside.setExit("forward",entranceHallway); 
+        outside.setExit("north", entranceHallway); 
         
         entranceHallway.setExit("west", livingRoom);
         entranceHallway.setExit("east", kitchen);
@@ -393,7 +388,25 @@ public class Game
     }
 
     
-   
+    /** Adds the array of items to the room 
+     *  returns the room
+     *  @param Room returns room 
+     *  
+     *
+     * 
+     * 
+     * 
+     */
+    private Room addItemsToRoom(Room room, Item items[]) 
+    {
+        for (int i = 0; i < items.length; i++)
+        {
+            room.addItem(items[i]);
+            
+        }
+        return room; 
+    }
+
     
     /** 
      * "Quit" was entered. Check the rest of the command to see
