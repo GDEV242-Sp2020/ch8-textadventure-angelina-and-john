@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Stack;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -21,8 +22,10 @@ public class Game
 {
     private Parser parser;
     private Player player;
-    private Room firstRoom;
+    private Room currentRoom;
     private String playerName;
+    private Stack<Room> rooms; // Stack of Rooms for the back Command
+    private Room previousRoom; //previous Rooms is for the stack
     
         
     
@@ -35,7 +38,8 @@ public class Game
     {
         createRooms();
         parser = new Parser();
-        player = new Player(playerName, firstRoom);
+        player = new Player(playerName, currentRoom);
+        rooms = new Stack<Room>(); // create Stack 
     }
 
     /**
@@ -213,7 +217,8 @@ public class Game
         
         weirdRoom.setExit("west", bedroom2); 
         
-        firstRoom = outside;
+        previousRoom=outside; 
+        currentRoom = outside;
         
         
         
@@ -246,11 +251,11 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the Borden house");
-        System.out.println("The house has been closed to the public since the axe murder of Sarah and Andrew Borden");
-        System.out.println("Many believe that it was their daughter Lizzie, who murdered them in their sleep...");
-        System.out.println("Although, no one is really sure...");
-        System.out.println("Anyway,the house is very haunted... but an avid paranormal hunter like you should not worry...but go in at your own risk");
+        System.out.println("Welcome to the Borden house\n");
+        System.out.println("The house has been closed to the public since the axe murder of Sarah and Andrew Borden" +"\n" );
+        System.out.println("Many believe that it was their daughter Lizzie, who murdered them in their sleep... "+ "\n" );
+        System.out.println("Although, no one is really sure..." +"\n" );
+        System.out.println("Anyway,the house is very haunted... but an avid paranormal hunter like you should not worry...but go in at your own risk" +"\n" );
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
         System.out.println(player.getCurrentRoom().getLongDescription());
@@ -263,15 +268,19 @@ public class Game
      */
     private boolean processCommand(Command command) 
     {
+        /*
+         * Initilize all the booleans as false 
+         */
         boolean wantToQuit = false;
         boolean wantToLook = false;
         boolean wantToListen = false; 
+        boolean wantToGoBack = false; 
 
         CommandWord commandWord = command.getCommandWord();
 
         switch (commandWord) {
             case UNKNOWN:
-                System.out.println("I don't know what you mean...");
+                System.out.println("I don't know what you mean..." +"\n" );
                 break;
 
             case HELP:
@@ -289,9 +298,18 @@ public class Game
             //Added a Listen Command 8,15
             case LISTEN:
                 wantToListen = listen(command); 
+                break;
             //Added a Look Command for 8.14
             case LOOK:
                 wantToLook = look(command); 
+                break;
+                
+            case BACK: 
+            
+                wantToGoBack = back(command); //added a back command (also check Command enum class)
+                break; 
+                
+                
                 
            
             
@@ -308,10 +326,10 @@ public class Game
      */
     private void printHelp() 
     {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the Borden murder house.");
+        System.out.println("You are lost. You are alone. You wander " +"\n" );
+        System.out.println("around at the Borden murder house."+"\n" );
         System.out.println();
-        System.out.println("Your command words are:");
+        System.out.println("Your command words are:"+"\n" );
         parser.showCommands();
     }
 
@@ -323,21 +341,24 @@ public class Game
     {
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
-            System.out.println("Go where?");
+            System.out.println("Go where?"+"\n" );
             return;
         }
 
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-        Room nextRoom = player.getCurrentRoom().getExit(direction);
-
+        Room nextRoom = currentRoom.getExit(direction);
+        //Room nextRoom = player.getCurrentRoom().getExit(direction)
+        
         if (nextRoom == null) {
-            System.out.println("There is no door!");
+            System.out.println("There is no door!"+"\n" );
         }
         else {
-            player.setCurrentRoom(nextRoom);
-            System.out.println(player.getCurrentRoom().getLongDescription());
+            rooms.push(currentRoom); //push is a method of the Stack class
+            currentRoom = nextRoom;
+            //player.setCurrentRoom(nextRoom); COMMENTED OUT YOUR STATEMENT JOHN
+            System.out.println(currentRoom.getLongDescription());
         }
     }
     
@@ -349,7 +370,7 @@ public class Game
     {
         if(!command.hasSecondWord())
     {
-        System.out.println(player.getCurrentRoom().getLongDescription());
+        System.out.println(currentRoom.getLongDescription());
         return true; 
     } 
     else{
@@ -360,15 +381,16 @@ public class Game
     /**
      * 8.15 Add another command with a simple text response
      * This command pulls a random statement from an array of statements.
-     * Feel free to add more statements 
+     * Feel free to add more statements - Angelina
      */
     private boolean listen(Command command)
     {
     
     String statement; 
+    
     String[] Statements = {"The silence here is petriying..", "I think I just heard a whisper", "What was that?", "That was probably the wind... I hope",
     "AHH!! Oh wait.. it's just a pigeon", "I smell suflur...", "The floor boards are so creaky", "..." , "I almost thought I heard... nevermind", 
-    "I can hear my own heartbeat..."};
+    "must be the rats" }; // add random statements here. 
     
     Random r = new Random(); 
     
@@ -426,5 +448,32 @@ public class Game
         else {
             return true;  // signal that we want to quit
         }
+    }
+    
+    /** 
+     * "Back" was entered. 
+     * if room stack is empty, a statement will print out saying you are outside. Boolean is false. 
+     * 
+     * if room stack is not empty, current room is what is ontop of stack
+     * print out current room description 
+     * return true 
+     * 
+     */
+    
+
+    private boolean back(Command command)
+    {
+     if (rooms.empty())
+     { System.out.print("You are outside the Borden house."+"\n" ); 
+         
+       return false;
+     }
+     else
+     {
+         currentRoom = rooms.pop(); 
+         System.out.println(currentRoom.getLongDescription()); 
+         return true;
+     }
+       
     }
 }
