@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.Stack;
+import java.util.Scanner;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -27,8 +28,7 @@ public class Game
     private Stack<Room> rooms; // Stack of Rooms for the back Command
     private Room previousRoom; //previous Rooms is for the stack
     
-        
-    
+    Scanner input = new Scanner(System.in); // Added scanner to create player
    
     
     /**
@@ -42,6 +42,19 @@ public class Game
         rooms = new Stack<Room>(); // create Stack 
     }
 
+    
+    private void createPlayer()
+    {
+        System.out.println("What is your name, ghost hunter?");
+        playerName = input.nextLine(); // reads next line
+        player.setPlayerName(playerName);  //sets player's name (if it works?) 
+        createRooms(); 
+        
+        
+        
+    }
+    
+    
     /**
      * Create all the rooms and link their exits together.
      * Create array of items. Each room has its own array. 
@@ -229,6 +242,7 @@ public class Game
         
         weirdRoom.setExit("west", bedroom2); 
         
+        
         previousRoom=outside; 
         currentRoom = outside;
         
@@ -241,9 +255,11 @@ public class Game
 
     /**
      *  Main play routine.  Loops until end of play.
+     *  creates a player
      */
     public void play() 
     {            
+        createPlayer(); // now creates player 
         printWelcome();
 
         // Enter the main command loop.  Here we repeatedly read commands and
@@ -259,11 +275,12 @@ public class Game
 
     /**
      * Print out the opening message for the player.
+     * Game greets the player with their own name.
      */
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the Borden house\n");
+        System.out.println("Welcome to the Borden house" + player.getName() +"  \n");
         System.out.println("The house has been closed to the public since the axe murder of Sarah and Andrew Borden" +"\n" );
         System.out.println("Many believe that it was their daughter Lizzie, who murdered them in their sleep... "+ "\n" );
         System.out.println("Although, no one is really sure..." +"\n" );

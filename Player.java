@@ -54,4 +54,22 @@ public class Player
     public void setCurrentRoom(Room room){
      currentRoom = room;   
     }
+    
+    
+    /**
+     *  setPlayer method returns name
+     * 
+     */
+    public void setPlayerName(String name)
+    {
+        this.playerName = name; 
+    }
+    /**
+     * method should get name 
+     * 
+     */
+    public String getName()
+    {
+        return playerName; 
+    }
 }
