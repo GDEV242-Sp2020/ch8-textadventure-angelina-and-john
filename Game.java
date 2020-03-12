@@ -207,10 +207,13 @@ public class Game
         stairs.setExit("south", entranceHallway);
         stairs.setExit("north", upstairsHallway); 
         
+        stairs2.setExit("south", entranceHallway);
+        stairs2.setExit("north", upstairsHallway);
+        
         upstairsHallway.setExit("west", bedroom1); 
         upstairsHallway.setExit("east", bedroom2);
         upstairsHallway.setExit("north", study); 
-        upstairsHallway.setExit("south", stairs); 
+        upstairsHallway.setExit("south", stairs2); 
         
         bedroom1.setExit("south", bathroom2);
         bedroom1.setExit("east", stairs2); 
@@ -366,6 +369,7 @@ public class Game
         else {
             rooms.push(currentRoom); //push is a method of the Stack class
             currentRoom = nextRoom;
+            
             //player.setCurrentRoom(nextRoom); COMMENTED OUT YOUR STATEMENT JOHN
             System.out.println(currentRoom.getLongDescription());
         }
@@ -466,7 +470,7 @@ public class Game
      * if the room is the cellar, then boolean is false and prints out a statement
      *
      * 
-     * if room stack is not empty, current room is what is ontop of stack
+     * if room stack is not empty, current room is what is on top of stack
      * print out current room description 
      * return true 
      * 
@@ -484,7 +488,8 @@ public class Game
      }
      else if(currentRoom.getShortDescription() == "in the wine cellar")
      {   
-         System.out.print("There is no where to go... you lived a good life...now drink some wine!");
+         System.out.println("There is no where to go... ");
+         System.out.println("you lived a good life...now drink some wine!");
          return false; 
      }
      else 

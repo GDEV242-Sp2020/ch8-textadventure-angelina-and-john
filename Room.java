@@ -72,7 +72,7 @@ public class Room
         if(getShortDescription()== "in the wine cellar")
         {
         
-            return "You are trapped...and you will die... but atleast you have wine!" +"\n" + " Quit to restart"; 
+            return "You have entered the wine cellar and the heavy metal door locked behind you...and you will die... but atleast you have wine!" +"\n" + " Quit to restart"; 
             
         }
         else 
