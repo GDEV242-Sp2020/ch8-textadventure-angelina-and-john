@@ -77,6 +77,10 @@ public class Player
         return playerName; 
     }
     
+    /**
+     * getPlayerDescription is similar to the Long Description, and now gets printed in game instead of long Description
+     * 
+     */
     public String getPlayerDescription() 
     {
         String describe = "Hey " + playerName + "!" + currentRoom.getLongDescription();
