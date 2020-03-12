@@ -479,7 +479,17 @@ public class Game
 
     private boolean back(Command command)
     {
+     
+    String statement1; 
+    
+    String[] Statements1 = {"There is no where to go.." , "This lock is unbreakable..", "You can't go back...You will die here...", "You'll never leave here! Might as well drink some wine!", "You can't go back.." 
+    }; // add random statements here. 
+    
+    Random r = new Random(); 
+    
+    statement1 = Statements1 [r.nextInt(Statements1.length)];
         
+     
      
      if (rooms.empty())
      { System.out.print("You are outside the Borden house."+"\n" ); 
@@ -488,8 +498,7 @@ public class Game
      }
      else if(currentRoom.getShortDescription() == "in the wine cellar")
      {   
-         System.out.println("There is no where to go... ");
-         System.out.println("you lived a good life...now drink some wine!");
+         System.out.println(statement1); 
          return false; 
      }
      else 
