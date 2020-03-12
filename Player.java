@@ -47,9 +47,11 @@ public class Player
         totalWeightCarried -= item.getItemWeight();
     }
     
+    
     public Room getCurrentRoom(){
      return currentRoom;   
     }
+    
     
     public void setCurrentRoom(Room room){
      currentRoom = room;   
@@ -64,12 +66,20 @@ public class Player
     {
         this.playerName = name; 
     }
+    
     /**
-     * method should get name 
+     * method should gets name 
+     * 
      * 
      */
     public String getName()
     {
         return playerName; 
     }
+    
+    public String getPlayerDescription() 
+    {
+        String describe = "Hey " + playerName + "!" + currentRoom.getLongDescription();
+        return describe; 
+    } 
 }

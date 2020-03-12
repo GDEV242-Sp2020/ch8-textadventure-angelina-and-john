@@ -280,14 +280,14 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the Borden house" + player.getName() +"  \n");
+        System.out.println("Welcome to the Borden house " + player.getName() +".  \n");
         System.out.println("The house has been closed to the public since the axe murder of Sarah and Andrew Borden" +"\n" );
         System.out.println("Many believe that it was their daughter Lizzie, who murdered them in their sleep... "+ "\n" );
         System.out.println("Although, no one is really sure..." +"\n" );
         System.out.println("Anyway,the house is very haunted... but an avid paranormal hunter like you should not worry...but go in at your own risk" +"\n" );
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
-        System.out.println(player.getCurrentRoom().getLongDescription());
+        System.out.println(player.getPlayerDescription()); //!!!!!!
     }
 
     /**
@@ -352,14 +352,28 @@ public class Game
      * Print out some help information.
      * Here we print some stupid, cryptic message and a list of the 
      * command words.
+     * 
+     * 
+     * The print help method has been edited to not print the commands if you are trapped
      */
     private void printHelp() 
     {
-        System.out.println("You are lost. You are alone. You wander " +"\n" );
+        
+        if(currentRoom.getShortDescription() == "in the wine cellar")
+        {
+        
+            System.out.println("I cannot help you, " + player.getName() +"...");
+            System.out.println("You have to QUIT the game, or die a slow painful death..");
+            
+            
+        } 
+        else {
+        System.out.println("You are lost, " +player.getName() +". You are alone. You wander " +"\n" );
         System.out.println("around at the Borden murder house."+"\n" );
         System.out.println();
         System.out.println("Your command words are:"+"\n" );
         parser.showCommands();
+    }
     }
 
     /** 
@@ -499,7 +513,7 @@ public class Game
      
     String statement1; 
     
-    String[] Statements1 = {"There is no where to go.." , "This lock is unbreakable..", "You can't go back...You will die here...", "You'll never leave here! Might as well drink some wine!", "You can't go back.." 
+    String[] Statements1 = {"There is no where to go... " , "This lock is unbreakable.. ", "You can't go back...You will die here... ", "You'll never leave here! Might as well drink some wine ", "You can't go back.. " 
     }; // add random statements here. 
     
     Random r = new Random(); 
@@ -515,7 +529,7 @@ public class Game
      }
      else if(currentRoom.getShortDescription() == "in the wine cellar")
      {   
-         System.out.println(statement1); 
+         System.out.println(statement1 + player.getName()); 
          return false; 
      }
      else 
