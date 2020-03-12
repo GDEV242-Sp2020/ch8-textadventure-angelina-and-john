@@ -53,7 +53,7 @@ public class Game
     private void createRooms()
     {
         Room outside, entranceHallway, stairs, stairs2, livingRoom, diningRoom, office,  kitchen, livingRoom2, bathroom1, upstairsHallway, bedroom1, bedroom2, bathroom2, 
-        bathroom3, walkInCloset, study, weirdRoom;
+        bathroom3, walkInCloset, study, weirdRoom, trapRoom;
         
         //All the room variables are defined above. 
         
@@ -126,7 +126,11 @@ public class Game
                                 new Item("Voodoo Doll", 1) 
         };
         
-        
+        Item trapRoomItems[] = {
+                                new Item("barell of red wine", 300),
+                                new Item("barrel of white wine", 300),
+                                new Item("skeleton", 20)
+        };
         
         // bellow all the rooms are made. 
         outside = new Room("outside the door to the house"); //1
@@ -147,6 +151,7 @@ public class Game
         walkInCloset = new Room ("in a walk in closet");//16
         study = new Room ("in the study");//17
         weirdRoom = new Room ("in the secret room");//18
+        trapRoom = new Room("in the wine cellar"); 
         
         //Added all the items to the rooms 
         outside = addItemsToRoom(outside, outsideItems); 
@@ -167,6 +172,9 @@ public class Game
         walkInCloset = addItemsToRoom(walkInCloset, walkInClosetItems); 
         study = addItemsToRoom(study, studyItems); 
         weirdRoom = addItemsToRoom(weirdRoom, weirdRoomItems); 
+        trapRoom = addItemsToRoom(trapRoom, trapRoomItems);
+        
+        
         
         //Bellow are all the exits for the rooms
         
@@ -192,6 +200,7 @@ public class Game
         
         kitchen.setExit("west", entranceHallway);
         kitchen.setExit("north", bathroom1);
+        kitchen.setExit("east", trapRoom);
         
         bathroom1.setExit("south", kitchen); 
         

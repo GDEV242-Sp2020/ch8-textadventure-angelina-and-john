@@ -56,6 +56,12 @@ public class Room
     }
 
     /**
+     * 
+     * if the current room is the wine cellar, there will be no exits.  
+     * game will prompt player to quit
+     * (but the back command still works) 
+     * 
+     * 
      * Return a description of the room in the form:
      *     You are in the kitchen.
      *     Exits: north west
@@ -63,6 +69,13 @@ public class Room
      */
     public String getLongDescription()
     {
+        if(getShortDescription()== "in the wine cellar")
+        {
+        
+            return "You are trapped...and you will die... but atleast you have wine!" +"\n" + " Quit to restart"; 
+            
+        }
+        else 
         return "\n"  + "You are " + description + ". \n" + "You see: \n  " + getItemsInRoom() + "\n" + getExitString();
     }
 
@@ -78,6 +91,8 @@ public class Room
         for(String exit : keys) {
             returnString += " " + exit;
         }
+        
+        
         return returnString;
     }
 
