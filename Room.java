@@ -58,8 +58,8 @@ public class Room
     /**
      * 
      * if the current room is the wine cellar, there will be no exits.  
-     * game will prompt player to quit
-     * (but the back command still works) 
+     * game will prompt player to QUIT
+     * 
      * 
      * 
      * Return a description of the room in the form:
@@ -76,6 +76,7 @@ public class Room
             
         }
         else 
+        
         return "\n"  + "You are " + description + ". \n" + "You see: \n  " + getItemsInRoom() + "\n" + getExitString();
     }
 

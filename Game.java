@@ -151,7 +151,7 @@ public class Game
         walkInCloset = new Room ("in a walk in closet");//16
         study = new Room ("in the study");//17
         weirdRoom = new Room ("in the secret room");//18
-        trapRoom = new Room("in the wine cellar"); 
+        trapRoom = new Room("in the wine cellar");   ///19 trapRoom has no exits. The player gets stuck. 
         
         //Added all the items to the rooms 
         outside = addItemsToRoom(outside, outsideItems); 
@@ -463,6 +463,9 @@ public class Game
      * "Back" was entered. 
      * if room stack is empty, a statement will print out saying you are outside. Boolean is false. 
      * 
+     * if the room is the cellar, then boolean is false and prints out a statement
+     *
+     * 
      * if room stack is not empty, current room is what is ontop of stack
      * print out current room description 
      * return true 
@@ -472,12 +475,19 @@ public class Game
 
     private boolean back(Command command)
     {
+        
+     
      if (rooms.empty())
      { System.out.print("You are outside the Borden house."+"\n" ); 
          
        return false;
      }
-     else
+     else if(currentRoom.getShortDescription() == "in the wine cellar")
+     {   
+         System.out.print("There is no where to go... you lived a good life...now drink some wine!");
+         return false; 
+     }
+     else 
      {
          currentRoom = rooms.pop(); 
          System.out.println(currentRoom.getLongDescription()); 
