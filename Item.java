@@ -23,13 +23,20 @@ public class Item
        itemWeight = 0; 
     }
   
+  /**
+   * 
+   * 
+   */
   public Item(String description, int weight)
   {
       itemDescription = description;
       itemWeight = weight; 
     }
+    
+    
    /**
-    *  getItemDescription returns String for Item 
+    *  getItemDescription 
+    *  @return itemString
     */
    public String getItemDescription()
    {
@@ -40,6 +47,13 @@ public class Item
     return itemString; 
     
     }
+    
+    /**
+     * getItemWeight method
+     * @return this.itemWeight
+     * 
+     */
+    
     
     public int getItemWeight(){
       return this.itemWeight;  

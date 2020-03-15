@@ -1,3 +1,4 @@
+
 import java.util.Random;
 import java.util.Stack;
 import java.util.Scanner;
@@ -42,6 +43,10 @@ public class Game
         rooms = new Stack<Room>(); // create Stack 
     }
 
+    /**
+     * CreatePlayer method
+     * 
+     */
     
     private void createPlayer()
     {
@@ -90,7 +95,7 @@ public class Game
                                 new Item("a Book", 5)
         };      
         Item diningRoomItems[] = {
-                                new Item("Plate", 300),
+                                new Item("Plate", 3),
                                 new Item("fork", 1) 
         };
         Item officeItems[] = {
@@ -122,7 +127,8 @@ public class Game
         }; 
         Item bedroom1Items[] = {
                                 new Item("bed", 300),
-                                new Item("Rocking chair", 100),                   
+                                new Item("Rocking chair", 100),
+                                new Item("gold ring", 1)
         };
         Item bedroom2Items[] = {
                                 new Item("bed", 300),
@@ -379,6 +385,7 @@ public class Game
     /** 
      * Try to go in one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
+     * @param command The command to be processed.
      */
     private void goRoom(Command command) 
     {
@@ -408,7 +415,8 @@ public class Game
     
     /**
      * Adds the look command to the game
-     * Just returns the room description 
+     * @returns true or false for the boolean field
+     *  @param command The command to be processed.
      */
     private boolean look(Command command) 
     {
@@ -423,8 +431,13 @@ public class Game
     }
 }
     /**
-     * 8.15 Add another command with a simple text response
+     * 8.15 Adds Listen Command.
      * This command pulls a random statement from an array of statements.
+     * @param command The command to be processed.
+     * @returns true if command does not have a second word
+     * @returns false for else
+     * 
+     * 
      * Feel free to add more statements - Angelina
      */
     private boolean listen(Command command)
@@ -459,9 +472,10 @@ public class Game
 
     
     /** Adds the array of items to the room 
-     *  returns the room
-     *  @param Room returns room 
-     *  
+     * 
+     *  @param Room for room field
+     *  @param Item for items array field
+     *  @returns value for room
      *
      * 
      * 
@@ -495,15 +509,13 @@ public class Game
     }
     
     /** 
-     * "Back" was entered. 
-     * if room stack is empty, a statement will print out saying you are outside. Boolean is false. 
+     * "Back" was entered. Check rest of command to see wether player wants to quit the game
+     * @param command for command field
+     * @return false if room stack is empty
+     * @return false if current room is trap room
+     * @return true if else, current room is top of the stack. 
      * 
-     * if the room is the cellar, then boolean is false and prints out a statement
-     *
      * 
-     * if room stack is not empty, current room is what is on top of stack
-     * print out current room description 
-     * return true 
      * 
      */
     

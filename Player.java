@@ -15,8 +15,11 @@ public class Player
     private ArrayList<Item> playerItems; //Array list of items held by the player.
     private int totalWeightCarried;
     private Room currentRoom;
+    private int maxWeight;
     /**
      * Constructor for objects of class Player
+     * @param playerName for the String field
+     * @param room for the Room field
      */
     public Player(String playerName, Room room)
     {
@@ -25,13 +28,12 @@ public class Player
         this.playerItems = new ArrayList<Item>();
         totalWeightCarried = 0;
         currentRoom = room;
+        maxWeight = 500; 
     }
 
     /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * 
+     * 
      */
     public void pickUpItem(Item item)
 
@@ -76,6 +78,11 @@ public class Player
     {
         return playerName; 
     }
+    
+    public Room getPlayerExit(String direction){
+        return currentRoom.getExit(direction); 
+    }
+    
     
     /**
      * getPlayerDescription is similar to the Long Description, and now gets printed in game instead of long Description
