@@ -129,6 +129,11 @@ public class Room
         roomItems.add(item); 
     } 
    
+     public void removeItem(Item item)
+    {
+        roomItems.remove(item); 
+    }
+    
     
 }
 

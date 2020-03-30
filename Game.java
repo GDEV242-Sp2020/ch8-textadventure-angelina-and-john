@@ -53,8 +53,8 @@ public class Game
         System.out.println("What is your name, ghost hunter?");
         playerName = input.nextLine(); // reads next line
         player.setPlayerName(playerName);  //sets player's name (if it works?) 
-        createRooms(); 
-        
+         
+        player.setCurrentRoom(currentRoom);
         
         
     }
@@ -265,7 +265,9 @@ public class Game
      */
     public void play() 
     {            
+         //creates Rooms
         createPlayer(); // now creates player 
+        createRooms();
         printWelcome();
 
         // Enter the main command loop.  Here we repeatedly read commands and
@@ -310,6 +312,8 @@ public class Game
         boolean wantToLook = false;
         boolean wantToListen = false; 
         boolean wantToGoBack = false; 
+        boolean wantToTake = false; 
+        
 
         CommandWord commandWord = command.getCommandWord();
 
@@ -343,12 +347,15 @@ public class Game
             
                 wantToGoBack = back(command); //added a back command (also check Command enum class)
                 break; 
-                
-                
-                
-           
             
+            case TAKE:
+                  
+                 wantToTake = take(command); 
+                 break; 
+                
+         
         }
+        
         return wantToQuit;
     }
 
@@ -551,5 +558,20 @@ public class Game
          return true;
      }
        
+    }
+    
+     /**
+     * 
+     * 
+     */
+    public boolean take(Command command)
+    {
+        if(!command.hasSecondWord())
+        {
+            System.out.println("Take what?");
+            return false;
+        }
+        
+        return true; 
     }
 }

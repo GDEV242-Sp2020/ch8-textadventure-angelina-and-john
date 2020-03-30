@@ -48,6 +48,12 @@ public class Item
     
     }
     
+       public String getItemShortDescrption()
+    {
+        return itemDescription;
+    }
+    
+    
     /**
      * getItemWeight method
      * @return this.itemWeight
