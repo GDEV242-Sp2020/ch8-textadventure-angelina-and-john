@@ -2,6 +2,7 @@
 import java.util.Random;
 import java.util.Stack;
 import java.util.Scanner;
+import java.util.Iterator;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -39,7 +40,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
-        player = new Player(playerName, currentRoom);
+        player = new Player(playerName, playerItems, currentRoom);
         rooms = new Stack<Room>(); // create Stack 
     }
 
@@ -53,7 +54,7 @@ public class Game
         System.out.println("What is your name, ghost hunter?");
         playerName = input.nextLine(); // reads next line
         player.setPlayerName(playerName);  //sets player's name (if it works?) 
-         
+        player.getPlayerItems(playerItems); /////just added Z
         player.setCurrentRoom(currentRoom);
         
         
@@ -584,19 +585,24 @@ public class Game
             String itemName;
             itemName = command.getSecondWord(); 
             
+            Iterator iter = currentRoom.roomItems.iterator(); 
             
-            
-            
-            if(currentRoom.roomItems.contains(itemName))
-            {
-              currentRoom.roomItems.remove(itemName); 
-              
-              System.out.println("You took" + itemName);
-              
-              return true;
-                
+            while (iter.hasNext()) {
+                Item itemToCheck = iter.next();
+                if (itemToCheck.getDescription().equals(secondWord)) {   // we have found the item
+                iter.remove();  // take it out of the room
+                player,pickUpItem(itemToCheck);
+                System.out.println("You pick up : " + secondWord);
+                return true;
             }
-        
+            // if we get here we didn't find it
+              System.out.println("I don't see a "+secondWord+ " here.");
+              return false;
+            }   
+            
+            
+            
+    
         }
         
         
