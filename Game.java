@@ -249,7 +249,7 @@ public class Game
         weirdRoom.setExit("west", bedroom2); 
         
         
-        previousRoom=outside; 
+        previousRoom = outside; 
         currentRoom = outside;
         
         
@@ -265,9 +265,9 @@ public class Game
      */
     public void play() 
     {            
-         //creates Rooms
+        createRooms();//creates Rooms
         createPlayer(); // now creates player 
-        createRooms();
+       
         printWelcome();
 
         // Enter the main command loop.  Here we repeatedly read commands and
@@ -566,12 +566,42 @@ public class Game
      */
     public boolean take(Command command)
     {
-        if(!command.hasSecondWord())
+        if(currentRoom.roomItems.isEmpty())
         {
-            System.out.println("Take what?");
+            System.out.print("There is nothing to take.");
             return false;
         }
         
-        return true; 
-    }
+        if(!command.hasSecondWord() && !currentRoom.roomItems.isEmpty())
+        {
+            System.out.println("Take what?");
+            return false;
+            
+        }
+        
+        if(command.hasSecondWord() && !currentRoom.roomItems.isEmpty())
+        {
+            String itemName;
+            itemName = command.getSecondWord(); 
+            
+            
+            
+            
+            if(currentRoom.roomItems.contains(itemName))
+            {
+              currentRoom.roomItems.remove(itemName); 
+              
+              System.out.println("You took" + itemName);
+              
+              return true;
+                
+            }
+        
+        }
+        
+        
+    return true; 
+     }
+
+
 }

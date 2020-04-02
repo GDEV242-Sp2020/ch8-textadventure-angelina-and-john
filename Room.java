@@ -21,7 +21,7 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> exits;        // stores exits of this room.
-    private ArrayList<Item> roomItems;      //Has an ArrayList of Room items
+    public ArrayList<Item> roomItems;      //Has an ArrayList of Room items
 
     /**
      * Create a room described "description". Initially, it has
@@ -129,8 +129,11 @@ public class Room
         roomItems.add(item); 
     } 
    
+     
+    
      public void removeItem(Item item)
     {
+        
         roomItems.remove(item); 
     }
     
