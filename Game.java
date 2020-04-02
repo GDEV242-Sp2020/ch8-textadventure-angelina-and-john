@@ -40,7 +40,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
-        player = new Player(playerName, playerItems, currentRoom);
+        player = new Player(playerName, currentRoom);
         rooms = new Stack<Room>(); // create Stack 
     }
 
@@ -54,7 +54,7 @@ public class Game
         System.out.println("What is your name, ghost hunter?");
         playerName = input.nextLine(); // reads next line
         player.setPlayerName(playerName);  //sets player's name (if it works?) 
-        player.getPlayerItems(playerItems); /////just added Z
+         /////just added Z
         player.setCurrentRoom(currentRoom);
         
         
@@ -78,45 +78,47 @@ public class Game
         
         //Bellow are all the Item arrays
         Item outsideItems[] = { 
-                                new Item("Bench", 50),
-                                new Item("Garogyle", 500) 
+                                new Item("bench", 50),
+                                new Item("garogyle", 500) 
         };
         Item entranceItems[] = { 
-                                new Item("Candle stick", 3)
+                                new Item("candle-stick", 3)
         };
         Item stairsItems[] =      {
-                                new Item("Spiderwebs", 0 ) 
+                                new Item("spiderwebs", 0 ) 
         };
         Item stairs2Items[] =  {
-                                new Item("Spiderwebs", 0)
+                                new Item("spiderwebs", 0),
+                                new Item("spider", 0)
         };
         
         Item livingRoomItems[] = {
-                                new Item("Couch", 300),
-                                new Item("a Book", 5)
+                                new Item("couch", 300),
+                                new Item("book", 5)
         };      
         Item diningRoomItems[] = {
-                                new Item("Plate", 3),
+                                new Item("plate", 3),
                                 new Item("fork", 1) 
         };
         Item officeItems[] = {
-                                new Item("Book", 4),
-                                new Item("Pile of Papers", 1) 
+                                new Item("book", 4),
+                                new Item("papers", 1) 
         };
         Item kitchenItems[] = {
-                                new Item("broken plate", 4),
-                                new Item("a painting", 1) 
+                                new Item("plate", 4),
+                                new Item("painting", 120) 
         };
         Item livingRoom2Items[] = {
-                                new Item("Couch", 300),
-                                new Item("a Book", 5)
+                                new Item("couch", 300),
+                                new Item("table", 200),
+                                new Item("book", 5)
                             };            
         Item bathroom1Items[] = {
-                                new Item("Mirror", 10),
+                                new Item("mirror", 10),
                                 new Item("toothbrush", 2) 
         };
         Item bathroom2Items[] = {
-                                new Item("Mirror", 10),
+                                new Item("wall-mirror", 101),
                                 new Item("hairbrush", 2) 
         };  
         Item bathroom3Items[] = {
@@ -124,16 +126,16 @@ public class Game
                                 new Item("toothbrush", 2) 
         };  
         Item upstairsHallwayItems[] = {
-                                new Item("Family Portrait", 5)
+                                new Item("family-portrait", 101)
         }; 
         Item bedroom1Items[] = {
                                 new Item("bed", 300),
-                                new Item("Rocking chair", 100),
-                                new Item("gold ring", 1)
+                                new Item("rocking-chair", 120),
+                                new Item("earrings", 1)
         };
         Item bedroom2Items[] = {
                                 new Item("bed", 300),
-                                new Item("Teddy bear", 5),
+                                new Item("teddy-bear", 5),
                                 new Item("journal", 3)
                              };            
         Item studyItems[] = {
@@ -143,7 +145,7 @@ public class Game
                                 new Item("hanger", 1) 
         };
          Item weirdRoomItems[] = {
-                                new Item("Voodoo Doll", 1) 
+                                new Item("voodoo-doll", 1) 
         };
         
         Item trapRoomItems[] = {
@@ -235,6 +237,9 @@ public class Game
         upstairsHallway.setExit("north", study); 
         upstairsHallway.setExit("south", stairs2); 
         
+        study.setExit("south", upstairsHallway);
+        
+        
         bedroom1.setExit("south", bathroom2);
         bedroom1.setExit("east", stairs2); 
         
@@ -314,6 +319,7 @@ public class Game
         boolean wantToListen = false; 
         boolean wantToGoBack = false; 
         boolean wantToTake = false; 
+        boolean wantToDrop = false; 
         
 
         CommandWord commandWord = command.getCommandWord();
@@ -354,6 +360,11 @@ public class Game
                  wantToTake = take(command); 
                  break; 
                 
+            case DROP:
+                 wantToDrop = drop(command); 
+                 break;
+            
+                 
          
         }
         
@@ -561,11 +572,18 @@ public class Game
        
     }
     
-     /**
-     * 
+     /** 
+     * if array of items in the currentRoom is empty print out that there is nothing tot take 
+     * @return false
+     * if the command doesn't have a second word and array of items in the currentroom is NOT empty ask for the second word.
+     * @return false
+     * if command has a second word, and current room items is not empty use an iterator to find the item by its description.
+     * remove item
+     * add item to player items
+     * @return true
      * 
      */
-    public boolean take(Command command)
+       public boolean take(Command command)
     {
         if(currentRoom.roomItems.isEmpty())
         {
@@ -588,26 +606,65 @@ public class Game
             Iterator iter = currentRoom.roomItems.iterator(); 
             
             while (iter.hasNext()) {
-                Item itemToCheck = iter.next();
-                if (itemToCheck.getDescription().equals(secondWord)) {   // we have found the item
+                Item itemToCheck = (Item)iter.next();
+                if (itemToCheck.getDescription().equals(itemName)) {   // we have found the item
                 iter.remove();  // take it out of the room
-                player,pickUpItem(itemToCheck);
-                System.out.println("You pick up : " + secondWord);
+                player.pickUpItem(itemToCheck);
+                System.out.println("You pick up : " + itemName);
                 return true;
             }
             // if we get here we didn't find it
-              System.out.println("I don't see a "+secondWord+ " here.");
+              System.out.println("I don't see a "+itemName+ " here.");
               return false;
-            }   
-            
-            
-            
-    
+            }                              
         }
         
-        
-    return true; 
+        return true; 
      }
 
+    /**
+     * public boolean drop
+     */
+    public boolean drop(Command command)
+    {
+        if(player.playerItems.isEmpty())
+        {
+            System.out.println("There is nothing to drop");
+        }
+        
+        if(!command.hasSecondWord() && !player.playerItems.isEmpty())
+        {
+            System.out.println("Drop what?");
+            return false;
+            
+        }
+        
+        if(command.hasSecondWord() && !currentRoom.roomItems.isEmpty())
+        {
+            String itemToDrop;
+            itemToDrop = command.getSecondWord();
+            
+            Iterator iterForPlayer = player.playerItems.iterator(); 
+            
+            while(iterForPlayer.hasNext())
+            {
+                Item checkItem = (Item)iterForPlayer.next();
+                if (checkItem.getDescription().equals(itemToDrop))
+                {
+                    iterForPlayer.remove(); 
+                    player.dropItem(checkItem); 
+                    currentRoom.dropItemToTheRoom(checkItem);
+                    
+                    System.out.println("You dropped : " + itemToDrop); 
+                    
+                }
+                System.out.println("I don't see a "+itemToDrop+ " in your backpack.");
+                
+            }
+            
+        }
+        
+        return false;
+    } 
 
 }

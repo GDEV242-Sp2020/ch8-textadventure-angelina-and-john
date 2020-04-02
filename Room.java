@@ -46,6 +46,14 @@ public class Room
         exits.put(direction, neighbor);
     }
 
+    
+     public void dropItemToTheRoom(Item item)
+
+    {
+        roomItems.add(item);
+        
+    } 
+    
     /**
      * @return The short description of the room
      * (the one that was defined in the constructor).

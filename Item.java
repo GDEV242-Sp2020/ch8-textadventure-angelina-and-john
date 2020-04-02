@@ -48,6 +48,11 @@ public class Item
     
     }
     
+    public String getDescription()
+    {
+        return itemDescription;
+    }
+    
        public String getItemShortDescrption()
     {
         return itemDescription;

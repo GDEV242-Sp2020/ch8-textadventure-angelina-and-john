@@ -12,7 +12,7 @@ public class Player
 {
     // instance variables - replace the example below with your own
     private String playerName;
-    private ArrayList<Item> playerItems; //Array list of items held by the player.
+    public ArrayList<Item> playerItems; //Array list of items held by the player.
     private int totalWeightCarried;
     private Room currentRoom;
     private int maxWeight;
@@ -25,7 +25,7 @@ public class Player
     {
         // initialise instance variables
         playerName = "";
-        this.playerItems = new ArrayList<Item>();
+        playerItems = new ArrayList<Item>();
         totalWeightCarried = 0;
         currentRoom = room;
         maxWeight = 500; 
@@ -54,6 +54,10 @@ public class Player
      return currentRoom;   
     }
     
+    public ArrayList<Item> getItemList()
+    {
+        return playerItems;
+    }
     
     public void setCurrentRoom(Room room){
      currentRoom = room;   
@@ -66,7 +70,7 @@ public class Player
      */
     public void setPlayerName(String name)
     {
-        this.playerName = name; 
+        playerName = name; 
     }
     
     /**
