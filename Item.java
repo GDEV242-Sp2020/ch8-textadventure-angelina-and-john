@@ -10,7 +10,7 @@ public class Item
 {
     // instance variables - replace the example below with your own
     private String itemDescription;
-    private int itemWeight ;
+    private double itemWeight ;
      
 
     /**
@@ -27,7 +27,7 @@ public class Item
    * 
    * 
    */
-  public Item(String description, int weight)
+  public Item(String description, double weight)
   {
       itemDescription = description;
       itemWeight = weight; 
@@ -66,7 +66,7 @@ public class Item
      */
     
     
-    public int getItemWeight(){
+    public double getItemWeight(){
       return this.itemWeight;  
     }
 }

@@ -250,9 +250,12 @@ public class Game
         bedroom2.setExit("south", bathroom3);
         bedroom2.setExit("east", walkInCloset);
         
+        walkInCloset.setExit("west", bedroom2);
+        walkInCloset.setExit("east", weirdRoom);
+        
         bathroom3.setExit("north", bedroom2); 
         
-        weirdRoom.setExit("west", bedroom2); 
+        weirdRoom.setExit("west", walkInCloset); 
         
         
         previousRoom = outside; 
@@ -436,12 +439,29 @@ public class Game
      * Adds the look command to the game
      * @returns true or false for the boolean field
      *  @param command The command to be processed.
+     *  if command does not have a second word, print out long description of the room.
+     *  print out that you are looking in the backpack, then print out items in playerItems if there are any
+     *  if the backpack is empty print out that its empty 
+     *  
      */
     private boolean look(Command command) 
     {
         if(!command.hasSecondWord())
     {
         System.out.println(currentRoom.getLongDescription());
+        System.out.println();
+        
+        if(player.getItemList()!= null)
+        {
+            System.out.println("Let's take a look in your backpack...");
+            System.out.println(player.getItemsInBackpack());
+            
+        }
+       if(player.getItemList().isEmpty())
+       {
+           System.out.println("Your backpack is empty...");
+       }
+        
         return true; 
     } 
     else{

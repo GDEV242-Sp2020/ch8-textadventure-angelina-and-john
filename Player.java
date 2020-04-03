@@ -13,9 +13,9 @@ public class Player
     // instance variables - replace the example below with your own
     private String playerName;
     public ArrayList<Item> playerItems; //Array list of items held by the player.
-    private int totalWeightCarried;
+    private double totalWeightCarried;
     private Room currentRoom;
-    private int maxWeight;
+    private double maxWeight;
     /**
      * Constructor for objects of class Player
      * @param playerName for the String field
@@ -71,6 +71,25 @@ public class Player
         return playerItems;
     }
     
+    /**
+     * getItemInBackpack works with the look method in Game to display player inventory
+     * @returns backpack items
+     */
+        public String getItemsInBackpack()
+    
+   {
+     String backpackItems = " " ;
+     for (Item item : playerItems)
+     {
+         backpackItems+= item.getItemDescription()+"\n";
+        }
+       return backpackItems;
+    }
+    
+    /**
+     * @param room 
+     * sets currentRoom
+     */
     public void setCurrentRoom(Room room){
         currentRoom = room;   
     }
@@ -94,6 +113,7 @@ public class Player
     {
         return playerName; 
     }
+    
     /**
      * @param direction
      * @returns exit for currentRoom
@@ -113,4 +133,9 @@ public class Player
         String describe = "Hey " + playerName + "!" + currentRoom.getLongDescription();
         return describe; 
     } 
+    
+    
+   
+
+
 }
