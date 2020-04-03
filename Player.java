@@ -32,7 +32,9 @@ public class Player
     }
 
     /**
-     * 
+     * pickUpItem method picks up item and aadds it to the playerItems array
+     * @param Item for item value
+     * adds item weight to total weight carried
      * 
      */
     public void pickUpItem(Item item)
@@ -41,7 +43,11 @@ public class Player
         playerItems.add(item);
         totalWeightCarried += item.getItemWeight();
     } 
-
+    /**
+    * dropItem method removes item from playerItems array
+    * @param Item for item value
+    * removes weight from total weight
+    */
     public void dropItem(Item item)
 
     {
@@ -49,24 +55,30 @@ public class Player
         totalWeightCarried -= item.getItemWeight();
     }
     
-    
+    /**
+     * getCurrentRoom()
+     * @returns currentRoom
+     */
     public Room getCurrentRoom(){
-     return currentRoom;   
-    }
+      return currentRoom;   
+     }
     
+     /**
+      * @returns playerItems
+      */
     public ArrayList<Item> getItemList()
     {
         return playerItems;
     }
     
     public void setCurrentRoom(Room room){
-     currentRoom = room;   
+        currentRoom = room;   
     }
     
     
     /**
      *  setPlayer method returns name
-     * 
+     *  @param String name
      */
     public void setPlayerName(String name)
     {
@@ -75,14 +87,17 @@ public class Player
     
     /**
      * method should gets name 
-     * 
+     * @returns name
      * 
      */
     public String getName()
     {
         return playerName; 
     }
-    
+    /**
+     * @param direction
+     * @returns exit for currentRoom
+     */
     public Room getPlayerExit(String direction){
         return currentRoom.getExit(direction); 
     }

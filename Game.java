@@ -630,41 +630,37 @@ public class Game
         if(player.playerItems.isEmpty())
         {
             System.out.println("There is nothing to drop");
+            return false;
         }
-        
         if(!command.hasSecondWord() && !player.playerItems.isEmpty())
         {
-            System.out.println("Drop what?");
-            return false;
-            
+           System.out.print("Take what?"); 
+           return false;
         }
-        
-        if(command.hasSecondWord() && !currentRoom.roomItems.isEmpty())
+        if(command.hasSecondWord() && !player.playerItems.isEmpty())
         {
-            String itemToDrop;
-            itemToDrop = command.getSecondWord();
+            String itemID;
+            itemID = command.getSecondWord(); 
             
-            Iterator iterForPlayer = player.playerItems.iterator(); 
+            Iterator it = player.playerItems.iterator(); 
             
-            while(iterForPlayer.hasNext())
+            while (it.hasNext())
             {
-                Item checkItem = (Item)iterForPlayer.next();
-                if (checkItem.getDescription().equals(itemToDrop))
+                Item itemToCheckDrop = (Item)it.next();
+                if(itemToCheckDrop.getDescription().equals(itemID))
                 {
-                    iterForPlayer.remove(); 
-                    player.dropItem(checkItem); 
-                    currentRoom.dropItemToTheRoom(checkItem);
-                    
-                    System.out.println("You dropped : " + itemToDrop); 
-                    
-                }
-                System.out.println("I don't see a "+itemToDrop+ " in your backpack.");
+                it.remove();
+                currentRoom.dropItemToTheRoom(itemToCheckDrop);
+                System.out.println("You dropped " + itemID);
+                return true;
                 
-            }
             
+                }
+                System.out.println("I don't see that item in your backpack");
+                return false;
         }
         
-        return false;
-    } 
-
+        } 
+        return true;
+     }
 }
