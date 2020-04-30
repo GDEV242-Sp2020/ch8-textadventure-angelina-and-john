@@ -4,25 +4,40 @@ import java.util.Stack;
 import java.util.Scanner;
 import java.util.Iterator;
 /**
- *  This class is the main class of the "World of Zuul" application. 
- *  "World of Zuul" is a very simple, text based adventure game.  Users 
- *  can walk around some scenery. That's all. It should really be extended 
- *  to make it more interesting!
- * 
+ *  This class is the main class of the Text Adventure Game. 
+ *  Users can walk around some scenery. Pick up and drop objects, and more...
  *  To play this game, create an instance of this class and call the "play"
  *  method.
  * 
- *  This main class creates and initialises all the others: it creates all
- *  rooms, creates the parser and starts the game.  It also evaluates and
- *  executes the commands that the parser returns.
+ * This game contains: 
  * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
- * This is just a test to see if I can figure ou the push/pull with Linux.
+ * 19 Rooms
+ * 8.14 Look command
+ * 8.15 Listen command
+ * 8.16 Streamline printing of available commands
+ * 8.20 Items
+ * 8.21 Rooms that can hold multiple items
+ * 8.26 Back command using stacks
+ * 8.28 A player which can hold multiple items using stacks
+ * 
+ * A rudimentary health systemn
+ * A one way trap door
+ * 
+ * 
+ * allow player to take item
+ * allow player to drop item
+ * player can have multiple items
+ * room can hold multiple items
+ * player has a max weight 
+ * 
+ * @author  Angelina Joy & John Fany
+ * @version Spring 2020
  */
 
 public class Game 
 {
+    
+    
     private Parser parser;
     private Player player;
     private Room currentRoom;
@@ -31,10 +46,18 @@ public class Game
     private Room previousRoom; //previous Rooms is for the stack
     
     Scanner input = new Scanner(System.in); // Added scanner to create player
-   
+    
+    public static void main(String[] args) {
+        Game mygame = new Game();
+        mygame.play();
+    }
     
     /**
      * Create the game and initialise its internal map.
+     * CreateRooms
+     * Create a new Parser
+     * Create the player
+     * Create Rooms
      */
     public Game() 
     {
@@ -46,6 +69,9 @@ public class Game
 
     /**
      * CreatePlayer method
+     * Ask player to input name.
+     * Set the player name
+     * Set Current room
      * 
      */
     
@@ -93,8 +119,10 @@ public class Game
         };
         
         Item livingRoomItems[] = {
-                                new Item("couch", 300),
-                                new Item("book", 5)
+                                new Item("book", 5),
+                                new Item("key", 0.1),
+                                new Item("couch", 300)
+                               
         };      
         Item diningRoomItems[] = {
                                 new Item("plate", 3),
@@ -109,17 +137,19 @@ public class Game
                                 new Item("painting", 120) 
         };
         Item livingRoom2Items[] = {
+                                 new Item("book", 5),
                                 new Item("couch", 300),
-                                new Item("table", 200),
-                                new Item("book", 5)
+                                new Item("table", 200)
+                               
                             };            
         Item bathroom1Items[] = {
                                 new Item("mirror", 10),
                                 new Item("toothbrush", 2) 
         };
         Item bathroom2Items[] = {
-                                new Item("wall-mirror", 101),
-                                new Item("hairbrush", 2) 
+                                new Item("hairbrush", 2) ,
+                                new Item("wall-mirror", 101)
+                               
         };  
         Item bathroom3Items[] = {
                                 new Item("hairbrush", 4),
@@ -129,14 +159,15 @@ public class Game
                                 new Item("family-portrait", 101)
         }; 
         Item bedroom1Items[] = {
-                                new Item("bed", 300),
+                                new Item("earrings", 1),
                                 new Item("rocking-chair", 120),
-                                new Item("earrings", 1)
+                                new Item("bed", 300)
         };
         Item bedroom2Items[] = {
-                                new Item("bed", 300),
+                                
                                 new Item("teddy-bear", 5),
-                                new Item("journal", 3)
+                                new Item("journal", 3),
+                                new Item("bed", 300)
                              };            
         Item studyItems[] = {
                                 new Item("envelope", 0) 
@@ -299,9 +330,10 @@ public class Game
         System.out.println();
         System.out.println("Welcome to the Borden house " + player.getName() +".  \n");
         System.out.println("The house has been closed to the public since the axe murder of Sarah and Andrew Borden" +"\n" );
-        System.out.println("Many believe that it was their daughter Lizzie, who murdered them in their sleep... "+ "\n" );
+        System.out.println("Many believe that it was their daughter, who murdered them in their sleep... "+ "\n" );
         System.out.println("Although, no one is really sure..." +"\n" );
         System.out.println("Anyway,the house is very haunted... but an avid paranormal hunter like you should not worry...but go in at your own risk" +"\n" );
+        System.out.println("A few rooms also have a gas leak... so be careful. Your current health is " + player.getHealth()); 
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
         System.out.println(player.getPlayerDescription()); //!!!!!!
@@ -411,11 +443,23 @@ public class Game
      */
     private void goRoom(Command command) 
     {
+        
+        if(player.getHealth() < 1)
+        { 
+            System.out.println("You lay there motionless in the " + currentRoom.getShortDescription()); 
+        }
+        
+        else
+        
+             {
+            
+            
+        
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
             System.out.println("Go where?"+"\n" );
             return;
-        }
+              } 
 
         String direction = command.getSecondWord();
 
@@ -423,16 +467,37 @@ public class Game
         Room nextRoom = currentRoom.getExit(direction);
         //Room nextRoom = player.getCurrentRoom().getExit(direction)
         
-        if (nextRoom == null) {
+            if (nextRoom == null) {
             System.out.println("There is no door!"+"\n" );
-        }
-        else {
+                 }
+             else {
             rooms.push(currentRoom); //push is a method of the Stack class
             currentRoom = nextRoom;
             
-            //player.setCurrentRoom(nextRoom); COMMENTED OUT YOUR STATEMENT JOHN
-            System.out.println(currentRoom.getLongDescription());
+            
+         //player.setCurrentRoom(nextRoom); COMMENTED OUT YOUR STATEMENT JOHN
+            System.out.println(currentRoom.getLongDescription());   
+             if( rooms.push(currentRoom).getShortDescription() == "in the kitchen" ||  rooms.push(currentRoom).getShortDescription() == "in the living room")
+            { 
+             player.hurt(); 
+             System.out.println(" Dont you feel a little dizzy...");
+             System.out.println(" Health is " + player.getHealth());
+             
+             if(player.getHealth() < 1)
+             {
+                System.out.println("...I warned you about that gas leak...");
+                System.out.println( player.getName() + " is dead... quit to restart"); 
+              }
+             
+            }
+   
+            
         }
+        
+    
+        
+          }
+        
     }
     
     /**
@@ -457,17 +522,17 @@ public class Game
             System.out.println(player.getItemsInBackpack());
             
         }
-       if(player.getItemList().isEmpty())
-       {
+        if(player.getItemList().isEmpty())
+        {
            System.out.println("Your backpack is empty...");
-       }
+        }
         
         return true; 
-    } 
-    else{
+        } 
+        else{
         return false;
         
-    }
+        }
 }
     /**
      * 8.15 Adds Listen Command.
@@ -475,7 +540,7 @@ public class Game
      * @param command The command to be processed.
      * @returns true if command does not have a second word
      * @returns false for else
-     * 
+     *  @param command The command to be processed.
      * 
      * Feel free to add more statements - Angelina
      */
@@ -494,15 +559,15 @@ public class Game
         
      
         if(!command.hasSecondWord())
-    {
+      {
         
         
         System.out.print(statement); 
         
         return true; 
-    }
-    else {
-    return false; 
+      }
+      else {
+     return false; 
     
     
    }
@@ -535,6 +600,7 @@ public class Game
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
      * @return true, if this command quits the game, false otherwise.
+     * @param command The command to be processed.
      */
     private boolean quit(Command command) 
     {
@@ -572,7 +638,13 @@ public class Game
     statement1 = Statements1 [r.nextInt(Statements1.length)];
         
      
+     if(player.getHealth() < 1)
+        { 
+            System.out.println("You lay there motionless in the " + currentRoom.getShortDescription() + "..."); 
+            return false; 
+        } 
      
+    else {
      if (rooms.empty())
      { System.out.print("You are outside the Borden house."+"\n" ); 
          
@@ -585,11 +657,27 @@ public class Game
      }
      else 
      {
+         
          currentRoom = rooms.pop(); 
+         if(currentRoom.getShortDescription() == "in the kitchen" || currentRoom.getShortDescription() == "in the living room")
+         { 
+             player.hurt(); 
+             System.out.println(" Dont you feel a little dizzy...");
+             System.out.println(" Health is " + player.getHealth());
+             
+             if(player.getHealth() < 1)
+             {
+                System.out.println("...I warned you about that gas leak...");
+                System.out.println( player.getName() + " is dead... quit to restart."); 
+                
+             }
+             
+         }
+         
          System.out.println(currentRoom.getLongDescription()); 
          return true;
      }
-       
+    }
     }
     
      /** 
@@ -601,7 +689,7 @@ public class Game
      * remove item
      * add item to player items
      * @return true
-     * 
+     * @param command The command to be processed.
      */
        public boolean take(Command command)
     {
@@ -618,7 +706,7 @@ public class Game
             
         }
         
-        if(command.hasSecondWord() && !currentRoom.roomItems.isEmpty())
+      
         {
             String itemName;
             itemName = command.getSecondWord(); 
@@ -627,23 +715,44 @@ public class Game
             
             while (iter.hasNext()) {
                 Item itemToCheck = (Item)iter.next();
+                
+              
                 if (itemToCheck.getDescription().equals(itemName)) {   // we have found the item
-                iter.remove();  // take it out of the room
-                player.pickUpItem(itemToCheck);
-                System.out.println("You pick up : " + itemName);
-                return true;
-            }
+                  // take it out of the room
+                
+                  if((itemToCheck.getItemWeight() + player.getPlayerWeight()) > player.getMaxWeight())
+                  {
+                    System.out.println("That is too heavy for you");
+                  }
+                  else if((itemToCheck.getItemWeight() + player.getPlayerWeight()) < player.getMaxWeight())
+                  {
+                  iter.remove();
+                  player.pickUpItem(itemToCheck);
+                  System.out.println("You pick up : " + itemName);
+                  return true;
+                  }
+                  else 
+                  {
+                      
+                  }
+              }
+            
             // if we get here we didn't find it
-              System.out.println("I don't see a "+itemName+ " here.");
+              System.out.println("Can't pick up "+itemName+"...");
               return false;
             }                              
         }
         
+        
+     
         return true; 
-     }
+    }
 
     /**
      * public boolean drop
+     * if playeritems array is empty
+     * @returns true
+     * if player
      */
     public boolean drop(Command command)
     {
@@ -672,10 +781,14 @@ public class Game
                 it.remove();
                 currentRoom.dropItemToTheRoom(itemToCheckDrop);
                 System.out.println("You dropped " + itemID);
+                
+                player.removeWeight(itemToCheckDrop.getItemWeight()); // removes weight from player
+                
                 return true;
                 
             
                 }
+                
                 System.out.println("I don't see that item in your backpack");
                 return false;
         }

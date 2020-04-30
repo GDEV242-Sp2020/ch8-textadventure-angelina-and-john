@@ -6,15 +6,13 @@ import java.util.ArrayList;
 /**
  * Class Room - a room in an adventure game.
  *
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.  
  *
  * A "Room" represents one location in the scenery of the game.  It is 
  * connected to other rooms via exits.  For each existing exit, the room 
  * stores a reference to the neighboring room.
  * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * @author  Angelina Joy and John Fahy
+ * @version Spring 2020
  */
 
 public class Room 
@@ -46,7 +44,10 @@ public class Room
         exits.put(direction, neighbor);
     }
 
-    
+    /**
+     * @param Item item to be processed
+     * adds item to room
+     */
      public void dropItemToTheRoom(Item item)
 
     {
@@ -107,7 +108,9 @@ public class Room
     }
 
     
-     
+     /**
+      * @retun what items are in the room
+      */
     public String getItemsInRoom()
     
    {
@@ -131,7 +134,10 @@ public class Room
     }
     
     
-    // addItem method 
+    /**
+     * @param item adds item to room
+     * theoretically the same to the dropItemInRoom method
+     */
      public void addItem(Item item)
     
     {
@@ -139,7 +145,10 @@ public class Room
     } 
    
      
-    
+   /**
+    * removes item from room
+    * @param item to be processed
+    */ 
      public void removeItem(Item item)
     {
         

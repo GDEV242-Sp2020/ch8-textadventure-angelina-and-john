@@ -12,10 +12,12 @@ public class Player
 {
     // instance variables - replace the example below with your own
     private String playerName;
-    public ArrayList<Item> playerItems; //Array list of items held by the player.
-    private double totalWeightCarried;
+    public ArrayList<Item> playerItems;//Array list of items held by the player.
+    public ArrayList<Item> pocket; 
+    private double totalWeightCarried = 0;
     private Room currentRoom;
     private double maxWeight;
+    private int playerHealth; 
     /**
      * Constructor for objects of class Player
      * @param playerName for the String field
@@ -26,9 +28,11 @@ public class Player
         // initialise instance variables
         playerName = "";
         playerItems = new ArrayList<Item>();
+        pocket = new ArrayList<Item>(); 
         totalWeightCarried = 0;
         currentRoom = room;
-        maxWeight = 500; 
+        maxWeight = 200; 
+        playerHealth = 10; 
     }
 
     /**
@@ -43,6 +47,7 @@ public class Player
         playerItems.add(item);
         totalWeightCarried += item.getItemWeight();
     } 
+   
     /**
     * dropItem method removes item from playerItems array
     * @param Item for item value
@@ -54,7 +59,6 @@ public class Player
         playerItems.remove(item);
         totalWeightCarried -= item.getItemWeight();
     }
-    
     /**
      * getCurrentRoom()
      * @returns currentRoom
@@ -135,7 +139,55 @@ public class Player
     } 
     
     
-   
+    /**
+     * @return totalWeightCarried
+     */
+    public double getPlayerWeight()
+    {
+        return totalWeightCarried;
+    }
+    
+    /**
+     * Adds to player weight 
+     * @return finalWeight
+     */
+    public double addToWeight(double itemWeight)
+    {
+     double finalWeight = totalWeightCarried + itemWeight; 
+     return finalWeight; 
+    }
+    
+    /**
+     * Removes weight from player 
+     * @return final weight
+     */
+    public double removeWeight(double itemWeight)
+    {
+     double finalWeight = totalWeightCarried - itemWeight; 
+     return finalWeight; 
+    }
+    
+    public double getMaxWeight()
+    {
+        return maxWeight; 
+    }
 
-
+    /**
+     * 
+     * @return health
+     */
+    public int getHealth()
+    {
+        return playerHealth; 
+    }
+    /**
+     * void method injures player's health
+     */
+    public void hurt()
+    {
+       playerHealth = playerHealth - 1; 
+        
+    }
+    
+    
 }

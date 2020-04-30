@@ -24,7 +24,8 @@ public class Item
     }
   
   /**
-   * 
+   * @param description for the String field for the Item
+   * @param weight for the double field for the Item
    * 
    */
   public Item(String description, double weight)
@@ -48,14 +49,22 @@ public class Item
     
     }
     
+    /**
+     * @return itemDescription
+     */
     public String getDescription()
     {
         return itemDescription;
     }
     
+    /**
+     * @return itemDescription
+     * 
+     */
        public String getItemShortDescrption()
     {
-        return itemDescription;
+        String shortDescription = itemDescription; 
+        return shortDescription;
     }
     
     
@@ -64,8 +73,6 @@ public class Item
      * @return this.itemWeight
      * 
      */
-    
-    
     public double getItemWeight(){
       return this.itemWeight;  
     }
