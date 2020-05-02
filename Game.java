@@ -20,7 +20,7 @@ import java.util.Iterator;
  * 8.26 Back command using stacks
  * 8.28 A player which can hold multiple items using stacks
  * 
- * A rudimentary health systemn
+ * A rudimentary health system : health decrements if you enter kitchen or living room due to a "gas leak"... health increments if you go back outside for "fresh air" 
  * A one way trap door
  * 
  * 
@@ -480,7 +480,7 @@ public class Game
              if( rooms.push(currentRoom).getShortDescription() == "in the kitchen" ||  rooms.push(currentRoom).getShortDescription() == "in the living room")
             { 
              player.hurt(); 
-             System.out.println(" Dont you feel a little dizzy...");
+             System.out.println(" Dont you feel a little dizzy... maybe go back out for fresh air...");
              System.out.println(" Health is " + player.getHealth());
              
              if(player.getHealth() < 1)
@@ -489,7 +489,15 @@ public class Game
                 System.out.println( player.getName() + " is dead... quit to restart"); 
               }
              
+              
+              
             }
+            
+            if(rooms.push(currentRoom).getShortDescription() == "outside the door to the house" && player.getHealth() < 10) 
+            {
+                player.breathe(); 
+                System.out.println("Health:" + player.getHealth());
+            } 
    
             
         }
@@ -662,7 +670,7 @@ public class Game
          if(currentRoom.getShortDescription() == "in the kitchen" || currentRoom.getShortDescription() == "in the living room")
          { 
              player.hurt(); 
-             System.out.println(" Dont you feel a little dizzy...");
+             System.out.println(" Dont you feel a little dizzy... maybe go outside for some fresh air");
              System.out.println(" Health is " + player.getHealth());
              
              if(player.getHealth() < 1)
@@ -673,6 +681,15 @@ public class Game
              }
              
          }
+         
+         
+          if(rooms.push(currentRoom).getShortDescription() == "outside the door to the house" && player.getHealth() < 10) 
+            {
+                player.breathe(); 
+                System.out.println("Health:" + player.getHealth());
+            } 
+   
+         
          
          System.out.println(currentRoom.getLongDescription()); 
          return true;

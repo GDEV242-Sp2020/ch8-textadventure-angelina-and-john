@@ -188,6 +188,15 @@ public class Player
        playerHealth = playerHealth - 1; 
         
     }
-    
+    /**
+     * method adds health points when player goes outside
+     */
+    public void breathe()
+    {
+        playerHealth = playerHealth + 1; 
+        System.out.println("Fresh air helps you feel better... try to avoid those rooms next time...");
+        
+        
+    }
     
 }
