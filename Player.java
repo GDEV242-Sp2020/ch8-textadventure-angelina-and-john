@@ -134,7 +134,7 @@ public class Player
      */
     public String getPlayerDescription() 
     {
-        String describe = "Hey " + playerName + "!" + currentRoom.getLongDescription();
+        String describe = "Okay " + playerName + "..." + currentRoom.getLongDescription();
         return describe; 
     } 
     

@@ -335,12 +335,11 @@ public class Game
     {
         System.out.println();
         System.out.println("Hi, " + player.getName() +".  \n");
-        System.out.println("My name is" + npc.getName() + ". I live across the street.");
-        System.out.println("The house has been closed to the public since the murder..." +"\n" );
+        System.out.println("My name is " + npc.getName() + ". I live across the street.");
+        System.out.println("The house has been closed to the public since the murder..."  );
         System.out.println("Anyway,the house is very haunted... ");
         System.out.println("A few rooms also have a gas leak... so be careful. Your current health is " + player.getHealth()); 
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
-        System.out.println();
         System.out.println(player.getPlayerDescription()); //!!!!!!
     }
 
@@ -434,7 +433,7 @@ public class Game
         } 
         else {
         System.out.println("You are lost, " +player.getName() +". You are alone. You wander " +"\n" );
-        System.out.println("around at the Borden murder house."+"\n" );
+        System.out.println("around at the haunted murder house."+"\n" );
         System.out.println();
         System.out.println("Your command words are:"+"\n" );
         parser.showCommands();
