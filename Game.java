@@ -20,10 +20,11 @@ import java.util.Iterator;
  * 8.26 Back command using stacks
  * 8.28 A player which can hold multiple items using stacks
  * 
+ * 
  * A rudimentary health system : health decrements if you enter kitchen or living room due to a "gas leak"... health increments if you go back outside for "fresh air" 
  * A one way trap door
  * 
- * 
+ * an NPC 
  * allow player to take item
  * allow player to drop item
  * player can have multiple items
@@ -44,7 +45,9 @@ public class Game
     private String playerName;
     private Stack<Room> rooms; // Stack of Rooms for the back Command
     private Room previousRoom; //previous Rooms is for the stack
-    
+    private NPC npc; 
+    private String npcName;
+    private Room currentRoomNPC; 
     Scanner input = new Scanner(System.in); // Added scanner to create player
     
     public static void main(String[] args) {
@@ -57,13 +60,16 @@ public class Game
      * CreateRooms
      * Create a new Parser
      * Create the player
-     * Create Rooms
+     * Create an NPC
+     * Create stack of Rooms
      */
     public Game() 
     {
         createRooms();
         parser = new Parser();
         player = new Player(playerName, currentRoom);
+        npc = new NPC(npcName, currentRoomNPC); 
+        
         rooms = new Stack<Room>(); // create Stack 
     }
 
@@ -82,7 +88,7 @@ public class Game
         player.setPlayerName(playerName);  //sets player's name (if it works?) 
          /////just added Z
         player.setCurrentRoom(currentRoom);
-        
+        npc.setName("Charlie");
         
     }
     
@@ -328,7 +334,8 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the haunted house, " + player.getName() +".  \n");
+        System.out.println("Hi, " + player.getName() +".  \n");
+        System.out.println("My name is" + npc.getName() + ". I live across the street.");
         System.out.println("The house has been closed to the public since the murder..." +"\n" );
         System.out.println("Anyway,the house is very haunted... ");
         System.out.println("A few rooms also have a gas leak... so be careful. Your current health is " + player.getHealth()); 
@@ -650,7 +657,8 @@ public class Game
             return false; 
         } 
      
-    else {
+     else {
+         
      if (rooms.empty())
      { System.out.print("You are outside the Borden house."+"\n" ); 
          
@@ -664,7 +672,11 @@ public class Game
      else 
      {
          
-         currentRoom = rooms.pop(); 
+         // Room nextRoom = rooms.pop(); 
+        // currentRoom = rooms.pop();
+        rooms.remove(rooms.pop());
+        currentRoom = rooms.pop();  
+        
          if(currentRoom.getShortDescription() == "in the kitchen" || currentRoom.getShortDescription() == "in the living room")
          { 
              player.hurt(); 
