@@ -196,11 +196,11 @@ public class Game
         kitchen = new Room ("in the kitchen");//8
         livingRoom2 = new Room ("in the family room");//9
         bathroom1 = new Room ("in the guest bathroom");//10
-        bathroom2 = new Room ("in the Borden's bathroom"); //11
-        bathroom3 = new Room ("in Lizzie's bathroom");//12
+        bathroom2 = new Room ("in the master bathroom"); //11
+        bathroom3 = new Room ("in small bathroom");//12
         upstairsHallway = new Room ("in the hallway");//13
-        bedroom1 = new Room ("in the bedroom of Andrew and Abby Borden");//14
-        bedroom2 = new Room ("in the bedroom of Borden's daughter, Lizzie");//15
+        bedroom1 = new Room ("in the master bedroom");//14
+        bedroom2 = new Room ("in the small bedroom");//15
         walkInCloset = new Room ("in a walk in closet");//16
         study = new Room ("in the study");//17
         weirdRoom = new Room ("in the secret room");//18
@@ -328,11 +328,9 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the Borden house " + player.getName() +".  \n");
-        System.out.println("The house has been closed to the public since the axe murder of Sarah and Andrew Borden" +"\n" );
-        System.out.println("Many believe that it was their daughter, who murdered them in their sleep... "+ "\n" );
-        System.out.println("Although, no one is really sure..." +"\n" );
-        System.out.println("Anyway,the house is very haunted... but an avid paranormal hunter like you should not worry...but go in at your own risk" +"\n" );
+        System.out.println("Welcome to the haunted house, " + player.getName() +".  \n");
+        System.out.println("The house has been closed to the public since the murder..." +"\n" );
+        System.out.println("Anyway,the house is very haunted... ");
         System.out.println("A few rooms also have a gas leak... so be careful. Your current health is " + player.getHealth()); 
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
