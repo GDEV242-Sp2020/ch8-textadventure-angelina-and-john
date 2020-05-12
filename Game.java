@@ -11,25 +11,26 @@ import java.util.Iterator;
  * 
  * This game contains: 
  * 
- * 19 Rooms
- * 8.14 Look command
- * 8.15 Listen command
- * 8.16 Streamline printing of available commands
- * 8.20 Items
- * 8.21 Rooms that can hold multiple items
- * 8.26 Back command using stacks
- * 8.28 A player which can hold multiple items using stacks
+ * - java doc document
+ * - 19 rooms
+ * - main method 
+ * - a look command
  * 
+ * To earn a C it has: 
  * 
- * A rudimentary health system : health decrements if you enter kitchen or living room due to a "gas leak"... health increments if you go back outside for "fresh air" 
- * A one way trap door
+ * - a listen command
+ * - streamline printing of available commands
  * 
- * an NPC 
- * allow player to take item
- * allow player to drop item
- * player can have multiple items
- * room can hold multiple items
- * player has a max weight 
+ * To earn a B it has
+ * - added items to rooms with many items in rooms.
+ * - rooms can hold many items
+ * - there is a back command that goes back many rooms
+ * - player can hold many objects
+ * 
+ * To earn an A
+ * - There is a 1 way trap door (The celler), to get trapped go north, east, east, east
+ * - There is an NPC name Charlie. He gives you a clue that there is a gass leak and when you come back outside he gives you more hints and warnings.
+ * - There is a health system. When you go into living room or kitchen, health goes minus 1
  * 
  * @author  Angelina Joy & John Fany
  * @version Spring 2020
@@ -83,7 +84,7 @@ public class Game
     
     private void createPlayer()
     {
-        System.out.println("What is your name, ghost hunter?");
+        System.out.println("Charlie:     What is your name, ghost hunter?");
         playerName = input.nextLine(); // reads next line
         player.setPlayerName(playerName);  //sets player's name (if it works?) 
          /////just added Z
@@ -340,6 +341,7 @@ public class Game
         System.out.println("Anyway,the house is very haunted... ");
         System.out.println("A few rooms also have a gas leak... so be careful. Your current health is " + player.getHealth()); 
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
+          System.out.println("I'm staying outside.");
         System.out.println(player.getPlayerDescription()); //!!!!!!
     }
 
@@ -501,8 +503,24 @@ public class Game
             {
                 player.breathe(); 
                 System.out.println("Health:" + player.getHealth());
+                
+                
+             
             } 
    
+            
+               if(rooms.push(currentRoom).getShortDescription() == "outside the door to the house") 
+            {
+                String statement; 
+    
+                  String[] Statements = {"I wouldn't go past the kitchen if I were you...", "I hear there is jewlery upstairs...", "Glad you're back.. you're not going back in are you..." , "A few years ago my neighbor went into the haunted house... and he been missing ever since..."}; // add random statements here. 
+    
+                 Random e = new Random(); 
+    
+                 statement = Statements [e.nextInt(Statements.length)];
+                
+                System.out.print("Charlie: " + statement);
+            } 
             
         }
         
@@ -692,12 +710,27 @@ public class Game
          }
          
          
-          if(rooms.push(currentRoom).getShortDescription() == "outside the door to the house" && player.getHealth() < 10) 
+         if(rooms.push(currentRoom).getShortDescription() == "outside the door to the house" && player.getHealth() < 10) 
             {
                 player.breathe(); 
                 System.out.println("Health:" + player.getHealth());
+      
             } 
-   
+            
+              if(rooms.push(currentRoom).getShortDescription() == "outside the door to the house") 
+            {
+                String statement; 
+    
+                  String[] Statements = {"I wouldn't go past the kitchen if I were you...", "I hear there is jewlery upstairs...", "Glad you're back.. you're not going back in are you..." , "A few years ago my neighbor went into the haunted house... and he been missing ever since..."}; // add random statements here. 
+    
+                 Random e = new Random(); 
+    
+                 statement = Statements [e.nextInt(Statements.length)];
+                
+                System.out.print("Charlie: " + statement);
+            } 
+         
+        
          
          
          System.out.println(currentRoom.getLongDescription()); 
